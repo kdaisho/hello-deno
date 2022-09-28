@@ -8,7 +8,7 @@ const router = new Router();
 const port = 3000;
 
 app.use(oakCors({
-  origin: /^.+localhost:(5173|5174)/,
+  origin: /^.+localhost:/,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
 app.use(router.routes());
