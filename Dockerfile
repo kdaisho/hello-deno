@@ -1,11 +1,17 @@
-FROM denoland/deno:1.25.4
-
-USER deno
-
-WORKDIR /home/deno
-
-COPY --chown=deno:deno . /home/deno
+FROM denoland/deno:alpine-1.25.4
 
 EXPOSE 3000
 
-CMD ["deno", "run", "--allow-net", "app.ts"]
+WORKDIR /home/deno
+
+USER deno
+
+COPY deps.ts .
+
+RUN deno cache deps.ts
+
+ADD . .
+
+RUN deno cache app.ts
+
+CMD ["run", "--allow-net", "app.ts"]
