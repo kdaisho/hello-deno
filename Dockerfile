@@ -1,17 +1,10 @@
 FROM denoland/deno:alpine-1.25.4
 
-EXPOSE 3000
-
-WORKDIR /home/deno
-
+WORKDIR /app
 USER deno
-
 COPY deps.ts .
-
 RUN deno cache deps.ts
-
 ADD . .
-
 RUN deno cache app.ts
-
+EXPOSE 3000
 CMD ["run", "--allow-net", "app.ts"]
