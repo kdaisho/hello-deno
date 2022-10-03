@@ -40,6 +40,11 @@ jobs:
           aws ecs describe-task-definition --task-definition myapp_definiiton:1 \
           --query taskDefinition > task-definition.json
 
+      - name: Check task def
+        run: |
+          echo "Is task def"
+          echo ${{ task-definition.json }}
+
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
