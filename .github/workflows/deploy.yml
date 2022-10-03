@@ -42,9 +42,9 @@ jobs:
       - name: Check image
         run: |
           echo "Is image start"
-          echo steps.build-image
-          echo steps.build-image.outputs
-          echo steps.build-image.outputs.image
+          echo ${{ steps.build-image }}
+          echo ${{ steps.build-image.outputs }}
+          echo ${{ steps.build-image.outputs.image }}
           echo "Is image end"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
