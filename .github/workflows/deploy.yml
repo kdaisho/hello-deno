@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+env:
+  ECS_TASK_DEFINITION: ./task-definition.json # set this to the path to your Amazon ECS task definition
+  CONTAINER_NAME: deno_app_container           # set this to the name of the container in the
+
+
 jobs:
   build:
     name: Build image
@@ -36,28 +41,28 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition myapp_definiiton:1 \
-          --query taskDefinition > task-definition.json
+      # - name: Download task definition
+      #   run: |
+      #     aws ecs describe-task-definition --task-definition myapp_definiiton:1 \
+      #     --query taskDefinition > task-definition.json
 
-      - name: Check task def
-        run: |
-          echo "Is task def"
-          echo task-definition.json
+      # - name: Check task def
+      #   run: |
+      #     echo "Is task def"
+      #     echo task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: task-definition.json
-          container-name: deno_app_container
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
           service: ci-cluster-service-ca-az1
           cluster: ci-cluster
           wait-for-service-stability: true
