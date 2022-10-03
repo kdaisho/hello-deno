@@ -40,20 +40,12 @@ jobs:
           aws ecs describe-task-definition --task-definition myapp:1 \
           --query taskDefinition > task-definition.json
 
-      - name: Check image
-        run: |
-          echo "Is image start"
-          echo ${{ steps.build-image }}
-          echo ${{ steps.build-image.outputs }}
-          echo ${{ steps.build-image.outputs.image }}
-          echo "Is image end"
-
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: deno-app
+          container-name: deno_app
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
