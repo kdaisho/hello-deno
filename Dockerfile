@@ -1,7 +1,6 @@
 FROM denoland/deno:alpine-1.25.4
 
 WORKDIR /app
-# USER deno
 COPY deps.ts .
 RUN deno cache deps.ts
 ADD . .
