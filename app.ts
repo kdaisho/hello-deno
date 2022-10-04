@@ -18,4 +18,4 @@ indexRouter.use("/", router);
 productsRouter.use("/products", router);
 
 console.log(`server listening on ${port}`);
-app.listen({ port, hostname: '0.0.0.0' });
+app.listen({ port });
