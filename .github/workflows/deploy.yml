@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main__]
 
 env:
   ECS_TASK_DEFINITION: ./task-definition.json # set this to the path to your Amazon ECS task definition
