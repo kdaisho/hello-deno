@@ -6,6 +6,6 @@ COPY deps.ts .
 RUN deno cache deps.ts
 ADD . .
 RUN deno cache app.ts
-ENV PORT 80
-EXPOSE 80
+ENV PORT 1025
+EXPOSE 1025
 CMD ["run", "--allow-net", "app.ts"]
