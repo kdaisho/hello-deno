@@ -5,7 +5,7 @@ import * as productsRouter from "./routes/products.ts";
 
 const app = new Application();
 const router = new Router();
-const port = 3011;
+const port = 80;
 
 app.use(oakCors({
   origin: /^.+localhost:/,
@@ -18,4 +18,4 @@ indexRouter.use("/", router);
 productsRouter.use("/products", router);
 
 console.log(`server listening on ${port}`);
-app.listen({ port });
+app.listen({ port, hostname: '0.0.0.0' });

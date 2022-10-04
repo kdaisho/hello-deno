@@ -17,9 +17,9 @@
       "entryPoint": null,
       "portMappings": [
         {
-          "hostPort": 3011,
+          "hostPort": 80,
           "protocol": "tcp",
-          "containerPort": 3011
+          "containerPort": 80
         }
       ],
       "command": null,
