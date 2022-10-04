@@ -17,9 +17,9 @@
       "entryPoint": null,
       "portMappings": [
         {
-          "hostPort": 1025,
+          "hostPort": 1020,
           "protocol": "tcp",
-          "containerPort": 1025
+          "containerPort": 1020
         }
       ],
       "command": null,
