@@ -9,6 +9,8 @@
 
 A package manager. It's like Terraform for your machine.
 
+#### Installation
+
 ```
 sh <(curl -L https://nixos.org/nix/install)
 ```
@@ -17,11 +19,16 @@ sh <(curl -L https://nixos.org/nix/install)
 
 direnv sets a scope for each directory to have a unique environment. (below command should work for zsh/fish/bash)
 
+#### Installation
+
 ```
 curl -sfL https://direnv.net/install.sh | bash
 ```
 
 _If installation doesn't complete due to errors related to PATH, install [deno](https://deno.land/manual@v1.26.0/getting_started/installation) first_
+
+#### Setup
+For direnv to work properly it needs to be hooked into the shell. Once the hook is configured, restart your shell for direnv to be activated.
 
 BASH
 
@@ -29,14 +36,14 @@ Add the following line at the end of the ~/.bashrc file:
 ```
 eval "$(direnv hook bash)"
 ```
-Make sure it appears even after rvm, git-prompt and other shell extensions that manipulate the prompt.
-
 ZSH
 
 Add the following line at the end of the ~/.zshrc file:
 ```
 eval "$(direnv hook zsh)"
 ```
+
+Make sure it appears even after rvm, git-prompt and other shell extensions that manipulate the prompt.
 
 ## 2. Clone the repository
 
