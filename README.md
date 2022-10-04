@@ -15,11 +15,13 @@ sh <(curl -L https://nixos.org/nix/install)
 
 ### [direnv](https://direnv.net/)
 
-direnv sets a scope for each directory to have a unique environment.
+direnv sets a scope for each directory to have a unique environment. (below command works for zsh & bash)
 
 ```
 curl -sfL https://direnv.net/install.sh | bash
 ```
+
+_If installation doesn't complete due to errors related to PATH, install [deno](https://deno.land/manual@v1.26.0/getting_started/installation) first_
 
 ## 2. Clone the repository
 
