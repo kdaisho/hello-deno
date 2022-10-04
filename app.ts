@@ -5,7 +5,7 @@ import * as productsRouter from "./routes/products.ts";
 
 const app = new Application();
 const router = new Router();
-const port = 1020;
+const port = 80;
 
 app.use(oakCors({
   origin: /^.+localhost:/,

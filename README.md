@@ -102,7 +102,7 @@ _deno = name, 1 = tag_
 ### Run a container
 
 ```
-docker run --network=deno-net --platform linux/amd64 -p 1020:1020 --name=deno-net --rm deno:1
+docker run --network=deno-net --platform linux/amd64 -p 80:80 --name=deno-net --rm deno:1
 ```
 
 _--network=deno-net = specifies to use a newly created `deno-net` network_
@@ -110,7 +110,7 @@ _--network=deno-net = specifies to use a newly created `deno-net` network_
 _--platform linux/amd64 = (optional) suppresses "WARNING: The requested image's
 platform (linux/amd64) does not match the detected host platform"_
 
-_-p = publish, 1020:1020 = maps port 1020 (right) to 1020 (left) to expose_
+_-p = publish, 80:80 = maps port 80 (right) to 80 (left) to expose_
 
 _--name=deno-net = specifies network for this container to use. other container
 instances can join the network by referencing the name_
