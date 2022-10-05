@@ -1,6 +1,6 @@
 # Deno HTTP Server
 
-## 1. Cloning the repository
+## Cloning the repository
 
 ```bash
 git clone https://github.com/kdaisho/hello-deno.git
@@ -17,7 +17,7 @@ direnv allow .
 Nix automatically starts installing each dependency listed in `shell.nix`.
 
 
-## 2. Running the server
+## Running the server
 
 ```bash
 deno run --allow-net app.ts
@@ -29,9 +29,9 @@ For development, add `--watch` flag to demonize the server.
 deno run --allow-net --watch app.ts
 ```
 
-## 3. Dockerization
+## Dockerization
 
-### Create a network
+### Creating a network
 
 A shared network is required for containerized servers to communicate each
 other.
