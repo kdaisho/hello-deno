@@ -114,7 +114,7 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "networkMode": "host",
+  "networkMode": "bridge",
   "runtimePlatform": {
     "operatingSystemFamily": "LINUX",
     "cpuArchitecture": null
