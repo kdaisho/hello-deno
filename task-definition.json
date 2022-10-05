@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/myapp_definiiton",
+          "awslogs-group": "/ecs/deno-app-definition",
           "awslogs-region": "ca-central-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -54,18 +54,18 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "deno_app_container"
+      "name": "deno-app-container"
     }
   ],
   "placementConstraints": [],
-  "memory": "1024",
+  "memory": "512",
   "taskRoleArn": null,
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ca-central-1:735571631348:task-definition/myapp_definiiton:1",
-  "family": "myapp_definiiton",
+  "taskDefinitionArn": "arn:aws:ecs:ca-central-1:735571631348:task-definition/deno-app-definition:1",
+  "family": "deno-app-definition",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -119,7 +119,7 @@
     "operatingSystemFamily": "LINUX",
     "cpuArchitecture": null
   },
-  "cpu": "512",
+  "cpu": "256",
   "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
