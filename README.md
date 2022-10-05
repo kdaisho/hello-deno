@@ -1,82 +1,35 @@
 # Deno HTTP Server
 
-## 1. Installing Nix and direnv
-
-> Jump to _**2. Clone the repository**_ if both `Nix` and `direnv` are already
-> installed to your machine.
-
-### [`Nix`](https://nixos.org/)
-
-A package manager. It's like Terraform for your machine.
-
-#### Installation
-
-```
-sh <(curl -L https://nixos.org/nix/install)
-```
-
-### [direnv](https://direnv.net/)
-
-direnv sets a scope for each directory to have a unique environment. (below command should work for zsh/fish/bash)
-
-#### Installation
-
-```
-curl -sfL https://direnv.net/install.sh | bash
-```
-
-_If installation doesn't complete due to errors related to PATH, install [deno](https://deno.land/manual@v1.26.0/getting_started/installation) first_
-
-#### Setup
-For direnv to work properly it needs to be hooked into the shell. Once the hook is configured, restart your shell for direnv to be activated.
-
-BASH
-
-Add the following line at the end of the ~/.bashrc file:
-```
-eval "$(direnv hook bash)"
-```
-ZSH
-
-Add the following line at the end of the ~/.zshrc file:
-```
-eval "$(direnv hook zsh)"
-```
-
-Make sure it appears even after rvm, git-prompt and other shell extensions that manipulate the prompt.
-
-## 2. Clone the repository
+## 1. Cloning the repository
 
 ```bash
-git clone git@github.com:kdaisho/hello-deno.git
+git clone https://github.com/kdaisho/hello-deno.git
 ```
 
-Once you've cloned this repo, Nix automatically starts installing each program
-listed in `shell.nix`. The environment is virtually limited within the directory
-where `.envrc` sits.
+Once cloned the repository, navigate into it. You'll be prompted to allow direnv to trigger dependency installation.
 
-You'll be prompted to type
+Type
 
 ```
 direnv allow .
 ```
 
-This lets `direnv` override the environment within the current and
-subdirectories.
+Nix automatically starts installing each dependency listed in `shell.nix`.
 
-## 3. Running the server
+
+## 2. Running the server
 
 ```bash
-deno run -A app.ts
+deno run --allow-net app.ts
 ```
 
 For development, add `--watch` flag to demonize the server.
 
 ```bash
-deno run -A --watch app.ts
+deno run --allow-net --watch app.ts
 ```
 
-## 4. Dockerization
+## 3. Dockerization
 
 ### Create a network
 
@@ -91,7 +44,7 @@ _deno-net = network name (can be anything)_
 
 To see list of networks, type `docker network ls`.
 
-### Build an image
+### Building an image
 
 ```
 docker build -t deno:1 .
@@ -99,10 +52,10 @@ docker build -t deno:1 .
 
 _deno = name, 1 = tag_
 
-### Run a container
+### Running a container
 
 ```
-docker run --network=deno-net --platform linux/amd64 -p 80:80 --name=deno-net --rm deno:1
+docker run --network=deno-net --platform linux/amd64 -p 3009:3009 --name=deno-net --rm deno:1
 ```
 
 _--network=deno-net = specifies to use a newly created `deno-net` network_
@@ -110,7 +63,7 @@ _--network=deno-net = specifies to use a newly created `deno-net` network_
 _--platform linux/amd64 = (optional) suppresses "WARNING: The requested image's
 platform (linux/amd64) does not match the detected host platform"_
 
-_-p = publish, 80:80 = maps port 80 (right) to 80 (left) to expose_
+_-p = publish, 3009:3009 = maps port 3009 (right) to 3009 (left) to expose_
 
 _--name=deno-net = specifies network for this container to use. other container
 instances can join the network by referencing the name_
