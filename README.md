@@ -16,17 +16,28 @@ direnv allow .
 
 Nix automatically starts installing each dependency listed in `shell.nix`.
 
+## Development
 
-## Running the server
+### Running a server
 
 ```bash
-deno run --allow-net app.ts
+deno run -A --watch app.ts
 ```
+_-A = alias for `--allow-all`. Use for development only_
 
-For development, add `--watch` flag to demonize the server.
+_--watch = daemonizes the server_
 
-```bash
-deno run --allow-net --watch app.ts
+### Formatter & linter (VS Code)
+
+Adding this to `settings.json` enables formatting TS files on save.
+
+```
+"[deno]": {
+  "deno.enable": true,
+  "deno.lint": true,
+  "editor.formatOnSave": true,
+  "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" }
+}
 ```
 
 ## Dockerization
