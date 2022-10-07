@@ -8,13 +8,13 @@ git clone https://github.com/kdaisho/hello-deno.git
 
 Once cloned the repository, navigate into it. You'll be prompted to allow direnv to trigger dependency installation.
 
-Type
+Then run
 
 ```
 direnv allow .
 ```
 
-Nix automatically starts installing each dependency listed in `shell.nix`.
+Nix starts installing each dependency listed in `shell.nix`.
 
 ## Development
 
