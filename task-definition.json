@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/deno-app-definition",
+          "awslogs-group": "/ecs/hello-project-definition-deno",
           "awslogs-region": "ca-central-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -59,13 +59,13 @@
   ],
   "placementConstraints": [],
   "memory": "512",
-  "taskRoleArn": null,
+  "taskRoleArn": "arn:aws:iam::735571631348:role/ecsTaskExecutionRole",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ca-central-1:735571631348:task-definition/deno-app-definition:1",
-  "family": "deno-app-definition",
+  "taskDefinitionArn": "arn:aws:ecs:ca-central-1:735571631348:task-definition/hello-project-definition-deno:1",
+  "family": "hello-project-definition-deno",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -90,6 +90,12 @@
       "targetType": null,
       "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
     },
     {
       "targetId": null,
