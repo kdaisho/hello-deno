@@ -1,23 +1,21 @@
-import { Application, Router } from "./deps.ts";
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
-import * as indexRouter from "./routes/index.ts";
-import * as productsRouter from "./routes/products.ts";
-import * as aboutRouter from "./routes/about.ts";
+import { GrpcServer } from "https://deno.land/x/grpc_basic@0.4.6/server.ts";
+import { SayHello } from "./services/home.ts";
+import { GetProducts } from "./services/products.ts";
+import { HelloService } from "./hello.d.ts";
 
-const app = new Application();
-const router = new Router();
 const port = 3009;
+const server = new GrpcServer();
 
-app.use(oakCors({
-  origin: /^.+localhost:/,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-}));
-app.use(router.routes());
-app.use(router.allowedMethods());
+const protoPath = new URL("hello.proto", import.meta.url);
+const protoFile = await Deno.readTextFile(protoPath);
 
-indexRouter.use("/", router);
-productsRouter.use("/products", router);
-aboutRouter.use("/about", router);
+server.addService<HelloService>(protoFile, {
+  SayHello,
+  GetProducts,
+});
 
-console.log(`server listening on ${port}`);
-app.listen({ port });
+console.log(`Listening on ${port}`);
+
+for await (const conn of Deno.listen({ port })) {
+  server.handle(conn);
+}

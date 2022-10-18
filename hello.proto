@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package helloPackage;
+
+service HelloService {
+  rpc SayHello (_) returns (Message);
+  rpc GetProducts (_) returns (Products);
+}
+
+message _ {}
+
+message Message {
+  string message = 1;
+}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message Products {
+  repeated Product products = 1;
+}
