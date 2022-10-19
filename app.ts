@@ -1,21 +1,39 @@
-import { GrpcServer } from "https://deno.land/x/grpc_basic@0.4.6/server.ts";
-import { SayHello } from "./services/home.ts";
-import { GetProducts } from "./services/products.ts";
-import { HelloService } from "./hello.d.ts";
+import grpc from "npm:@grpc/grpc-js";
+import protoLoader from "npm:@grpc/proto-loader";
+import products from "./data/products.json" assert { type: "json" };
+import type { HelloPackage, Product } from "./hello.d.ts";
+
+const packageDef = protoLoader.loadSync("hello.proto", {});
+const grpcObject = grpc.loadPackageDefinition(packageDef);
+const helloPackage = grpcObject.helloPackage as HelloPackage;
 
 const port = 3009;
-const server = new GrpcServer();
+const server = new grpc.Server();
 
-const protoPath = new URL("hello.proto", import.meta.url);
-const protoFile = await Deno.readTextFile(protoPath);
+server.bindAsync(
+  `0.0.0.0:${port}`,
+  grpc.ServerCredentials.createInsecure(),
+  () => {
+    console.log(`Server running at ${port}`);
+    server.start();
+  },
+);
 
-server.addService<HelloService>(protoFile, {
+server.addService(helloPackage.HelloService.service, {
   SayHello,
   GetProducts,
 });
 
-console.log(`Listening on ${port}`);
+function SayHello(
+  _: null,
+  callback: (arg0: null, arg1: { message: string }) => void,
+) {
+  callback(null, { message: "Hello from npm:gRPC 🦕" });
+}
 
-for await (const conn of Deno.listen({ port })) {
-  server.handle(conn);
+function GetProducts(
+  _: null,
+  callback: (arg0: null, arg1: { products: Product[] }) => void,
+) {
+  callback(null, { products });
 }
