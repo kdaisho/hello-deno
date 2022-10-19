@@ -3,7 +3,7 @@ import protoLoader from "npm:@grpc/proto-loader";
 import products from "./data/products.json" assert { type: "json" };
 import type { HelloPackage, Product } from "./hello.d.ts";
 
-const packageDef = protoLoader.loadSync("hello.proto", {});
+const packageDef = protoLoader.loadSync("proto/hello.proto", {});
 const grpcObject = grpc.loadPackageDefinition(packageDef);
 const helloPackage = grpcObject.helloPackage as HelloPackage;
 
