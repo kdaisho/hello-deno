@@ -6,7 +6,7 @@ import { HelloService } from "./hello.d.ts";
 const port = 3009;
 const server = new GrpcServer();
 
-const protoPath = new URL("hello.proto", import.meta.url);
+const protoPath = new URL("proto/hello.proto", import.meta.url);
 const protoFile = await Deno.readTextFile(protoPath);
 
 server.addService<HelloService>(protoFile, {
