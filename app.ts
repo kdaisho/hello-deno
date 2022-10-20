@@ -1,23 +1,23 @@
-import { Application, Router } from "./deps.ts";
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
-import * as indexRouter from "./routes/index.ts";
-import * as productsRouter from "./routes/products.ts";
-import * as aboutRouter from "./routes/about.ts";
+import { serve } from "https://deno.land/std@0.117.0/http/server.ts";
+import { respond } from "https://deno.land/x/gentle_rpc@v3.4/mod.ts";
+import { SayHello } from "./services/home.ts";
+import { GetProductById, GetProducts } from "./services/products.ts";
+import { GetRecipe, Sum } from "./services/about.ts";
 
-const app = new Application();
-const router = new Router();
 const port = 3009;
 
-app.use(oakCors({
-  origin: /^.+localhost:/,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-}));
-app.use(router.routes());
-app.use(router.allowedMethods());
+const rpcMethods = {
+  SayHello,
+  GetProducts,
+  GetProductById,
+  GetRecipe,
+  Sum,
+};
 
-indexRouter.use("/", router);
-productsRouter.use("/products", router);
-aboutRouter.use("/about", router);
-
-console.log(`server listening on ${port}`);
-app.listen({ port });
+serve(
+  (req) => {
+    return respond(rpcMethods, req);
+  },
+  { addr: `:${port}` },
+);
+console.log(`Listening on ${port}`);
